@@ -1,4 +1,4 @@
 [build]
-  base = "project_folder"
-  command = "pip install -r requirements.txt && gunicorn app:app"
-  publish = "dist"  # Optional: If you have static files to serve
+base = "project_folder"  # relative folder inside your repo, or remove if building from root
+publish = "dist"         # folder to publish, relative to base
+command = "npm run build" # build command
