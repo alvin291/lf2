@@ -1,3 +1,4 @@
 [build]
+  base = "project_folder"
   command = "pip install -r requirements.txt && gunicorn app:app"
   publish = "dist"  # Optional: If you have static files to serve
