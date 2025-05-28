@@ -1,4 +1,4 @@
 [build]
-base = "project_folder"  # relative folder inside your repo, or remove if building from root
-publish = "dist"         # folder to publish, relative to base
 command = "npm run build" # build command
+publish = "dist"         # folder to publish, relative to base
+base = "project_folder"  # relative folder inside your repo, or remove if building from root
