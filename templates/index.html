@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Linde Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% if brand == "Linde" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/linde.css') }}">
+    {% endif %}
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splash-screen">
+        <img src="{{ url_for('static', filename='brand_assets/' + brand.lower() + '/logo.png') }}" alt="Brand Logo" class="logo">
+        <h2>Welcome to {{ brand }} Extractor</h2>
+        <p>Processing your file with {{ brand }} branding...</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content" style="display: none;">
+        <div class="container">
+            <h1>Welcome to the {{ brand }} Extractor App</h1>
+            
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="messages">
+                        {% for category, message in messages %}
+                            <div class="message {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <!-- Upload Form -->
+            <form method="post" enctype="multipart/form-data">
+                <label for="file">Upload your Excel file:</label><br><br>
+                <input type="file" name="file" id="file" required><br><br>
+                
+                <label for="update_option">Choose Update Option:</label><br>
+                <select name="update_option" id="update_option" required>
+                    <option value="replace">Replace Part Number Column</option>
+                    <option value="new_column">Add New Column for Updated Part Numbers</option>
+                </select><br><br>
+                
+                <button type="submit" class="btn">Process File</button>
+            </form>
+            
+            <!-- Download Links -->
+            {% if download %}
+                <h3>Download Your Files:</h3>
+                <a href="/download/excel" class="btn">Download Updated Excel File</a><br>
+                <a href="/download/txt" class="btn">Download TXT File</a>
+            {% endif %}
+            
+            <!-- Fun Facts -->
+            {% if brand == "Linde" %}
+                <div class="fun-facts-section">
+                    <h3>Fun Fact About Linde</h3>
+                    <p>{{ fun_fact }}</p>
+                </div>
+            {% elif brand == "Unknown" %}
+                <p>No brand-specific information available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Hide splash screen and show main content after 2 seconds
+        setTimeout(function() {
+            document.getElementById("splash-screen").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+        }, 2000);
+    </script>
+</body>
+</html>
